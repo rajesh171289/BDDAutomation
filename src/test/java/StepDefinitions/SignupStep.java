@@ -2,10 +2,13 @@ package StepDefinitions;
 
 import java.time.Duration;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 
 public class SignupStep {
 	static WebDriver driver;
@@ -24,6 +27,12 @@ public class SignupStep {
 		driver.close();
 		//throw new io.cucumber.java.PendingException();
 		
+	}
+	
+	@Then("User navigates to testpage")
+	public void user_navigates_to_testpage() {
+	    // Write code here that turns the phrase above into concrete actions
+	    Assert.assertTrue(driver.findElements(By.xpath("//div[@class='//*[@id=\"maincontent\"]/div[1]/h1/span']")).size()>0);
 	}
 
 }
