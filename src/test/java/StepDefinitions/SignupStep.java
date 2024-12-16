@@ -1,12 +1,15 @@
 package StepDefinitions;
 
+import defaultpackage.pageObjects;
 import java.time.Duration;
+import java.util.NoSuchElementException;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 
@@ -21,18 +24,30 @@ public class SignupStep {
 		   // Pause execution for 10 seconds (10,000 milliseconds)
 		try {
 		    Thread.sleep(10000);
+		    Assert.assertTrue(driver.findElements(By.xpath("//a[@class='logo']/img[contains(@src,'images/logo.svg')]")).size()>0);
 		} catch (InterruptedException e) {
 		    e.printStackTrace();
 		}
-		driver.close();
-		//throw new io.cucumber.java.PendingException();
-		
+
+		try {
+			driver.findElement(By.xpath("//a[contains(@href, 'customer/account/create')]")).click();
+		} catch (NoSuchElementException e) { // Handling the exception
+		    System.out.println("Element not found: " + e.getMessage());
+		    // Optional: Log the exception or take specific recovery steps here
+		}
+		// Create an instance of PageObjects
+       
 	}
 	
 	@Then("User navigates to testpage")
 	public void user_navigates_to_testpage() {
 	    // Write code here that turns the phrase above into concrete actions
-	    Assert.assertTrue(driver.findElements(By.xpath("//div[@class='//*[@id=\"maincontent\"]/div[1]/h1/span']")).size()>0);
+	    Assert.assertTrue(driver.findElements(By.xpath("//a[@class='logo']/img[contains(@src,'images/logo.svg')]")).size()>0);
+	
+	}
+	@And("Close the Browser")
+	public void Close_the_Browser() {
+		driver.close();
 	}
 
 }
